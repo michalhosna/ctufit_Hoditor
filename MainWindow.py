@@ -1,11 +1,20 @@
-
-from tkinter import Frame, BOTH, Menu, filedialog, Canvas, Label as tkLabel, PhotoImage
-from PIL import ImageTk
 import os.path
+from tkinter import Frame, BOTH, Menu, filedialog, Label as tkLabel
+from PIL import ImageTk
 from Image import Image
 
-class MainWindow(Frame):
+def actionCall(function):
+    def _actionCall(self, *args, **kwargs):
+        self.parent.config(cursor="wait")
+        result = function(self, *args, **kwargs)
+        self.reloadImage()
+        self.parent.config(cursor="")
 
+        return result
+
+    return _actionCall
+
+class MainWindow(Frame):
     def __init__(self, parent):
         Frame.__init__(self, parent)
 
@@ -43,7 +52,7 @@ class MainWindow(Frame):
 
         menubar.add_cascade(label="Effects", menu=effectsMenu)
 
-        self.parent.resizable(0,0)
+        self.parent.resizable(0, 0)
 
         self.ImageProcessor = Image(os.path.dirname(os.path.abspath(__file__)) + "/init.png")
 
@@ -60,7 +69,7 @@ class MainWindow(Frame):
         ftypes = [('All files', '*')]
         title = 'Choose the output directory'
         dlg = filedialog.asksaveasfilename(filetypes=ftypes, title=title,
-                                         initialfile='--this directory--')
+                                           initialfile='--this directory--')
         if dlg is None:
             return
         self.ImageProcessor.saveAs(dlg)
@@ -75,51 +84,49 @@ class MainWindow(Frame):
             self.ImageProcessor = Image(fl)
             self.reloadImage()
 
-
+    @actionCall
     def onRotateCW(self):
         self.ImageProcessor.rotateCW()
-        self.reloadImage()
 
+    @actionCall
     def onRotateCCW(self):
         self.ImageProcessor.rotateCCW()
-        self.reloadImage()
 
+    @actionCall
     def onVerticalFlip(self):
         self.ImageProcessor.verticalFlip()
-        self.reloadImage()
 
-        self.ImageProcessor.verticalFlip()
+    @actionCall
     def onHorizontalFlip(self):
         self.ImageProcessor.horizontalFlip()
-        self.reloadImage()
 
+    @actionCall
     def onInvert(self):
         self.ImageProcessor.invert()
-        self.reloadImage()
 
+    @actionCall
     def onGrayscale(self):
         self.ImageProcessor.grayscale()
-        self.reloadImage()
 
+    @actionCall
     def onLighten(self):
         self.ImageProcessor.lighten()
-        self.reloadImage()
 
+    @actionCall
     def onDarken(self):
         self.ImageProcessor.darken()
-        self.reloadImage()
 
+    @actionCall
     def onFindEdges(self):
         self.ImageProcessor.findEdges()
-        self.reloadImage()
 
+    @actionCall
     def onSharpen(self):
         self.ImageProcessor.sharpen()
-        self.reloadImage()
 
+    @actionCall
     def onBlur(self):
         self.ImageProcessor.blur()
-        self.reloadImage()
 
     def reloadImage(self):
         self.imageLabel.configure(image=None)
