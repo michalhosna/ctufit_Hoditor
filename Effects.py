@@ -13,10 +13,10 @@ def rotate(image, times):
     return Image.fromarray(pixData)
 
 def lighten(image):
-    return image.point(lambda p: p * 1.1)
+    return image.point(lambda p: p * 1.2)
 
 def darken(image):
-    return image.point(lambda p: p * 0.9)
+    return image.point(lambda p: p * 0.8)
 
 def invert(image):
     pixData = np.array(image)
