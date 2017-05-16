@@ -1,5 +1,5 @@
 
-from tkinter import Frame, BOTH, Menu, filedialog, Canvas
+from tkinter import Frame, BOTH, Menu, filedialog, Canvas, Label as tkLabel, PhotoImage
 from PIL import ImageTk
 
 from Image import Image
@@ -45,8 +45,11 @@ class MainWindow(Frame):
 
         menubar.add_cascade(label="Effects", menu=effectsMenu)
 
-        self.canvas = Canvas(self.parent, width=500, height=500)
-        self.canvas.pack()
+        self.parent.geometry('{}x{}'.format(200, 200))
+
+        self.keepPhoto = PhotoImage()
+        self.imageLabel = tkLabel(self, image=self.keepPhoto)
+        self.imageLabel.grid(row=0, column=0)
 
     def onSave(self):
         self.ImageProcessor.save()
@@ -63,33 +66,61 @@ class MainWindow(Frame):
     def onOpen(self):
 
         ftypes = [('All files', '*'), ('Supported images', '*.png')]
-        dlg = filedialog.Open(self, filetypes = ftypes)
+        dlg = filedialog.Open(self, filetypes=ftypes)
         fl = dlg.show()
 
         if fl != '':
             self.ImageProcessor = Image(fl)
-            tk_img = ImageTk.PhotoImage(self.ImageProcessor.image)
-            self.canvas.create_image(250, 250, image=tk_img)
+            self.reloadImage()
+
 
     def onRotateCW(self):
         self.ImageProcessor.rotateCW()
+        self.reloadImage()
+
     def onRotateCCW(self):
         self.ImageProcessor.rotateCCW()
+        self.reloadImage()
+
     def onVerticalFlip(self):
+        self.ImageProcessor.verticalFlip()
+        self.reloadImage()
+
         self.ImageProcessor.verticalFlip()
     def onHorizontalFlip(self):
         self.ImageProcessor.horizontalFlip()
+        self.reloadImage()
+
     def onInvert(self):
         self.ImageProcessor.invert()
+        self.reloadImage()
+
     def onGreyscale(self):
         self.ImageProcessor.greyscale()
+        self.reloadImage()
+
     def onLighten(self):
         self.ImageProcessor.lighten()
+        self.reloadImage()
+
     def onDarken(self):
         self.ImageProcessor.darken()
+        self.reloadImage()
+
     def onFindEdges(self):
         self.ImageProcessor.findEdges()
+        self.reloadImage()
+
     def onSharpen(self):
         self.ImageProcessor.sharpen()
+        self.reloadImage()
+
     def onBlur(self):
         self.ImageProcessor.blur()
+        self.reloadImage()
+
+    def reloadImage(self):
+        self.imageLabel.configure(image=None)
+        self.keepPhoto = ImageTk.PhotoImage(self.ImageProcessor.image)
+        self.parent.geometry('{}x{}'.format(self.keepPhoto.width(), self.keepPhoto.height()))
+        self.imageLabel.configure(image=self.keepPhoto)
