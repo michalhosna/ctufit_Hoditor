@@ -7,7 +7,10 @@ from math import floor
 
 def actionCall(function):
     def _actionCall(self, *args, **kwargs):
-        self.parent.config(cursor="wait")
+        try:
+            self.parent.config(cursor="wait")
+        except:
+            ...
         result = function(self, *args, **kwargs)
         self.reloadImage()
         self.parent.config(cursor="")
