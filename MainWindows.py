@@ -1,5 +1,6 @@
 
-from tkinter import Frame, BOTH, Menu, filedialog
+from tkinter import Frame, BOTH, Menu, filedialog, Canvas
+from PIL import ImageTk
 
 from Image import Image
 
@@ -10,7 +11,8 @@ class MainWindow(Frame):
 
         self.parent = parent
         self.initUI()
-        self.ImageProcessor = Image()
+
+        self.ImageProcessor = None
 
     def initUI(self):
 
@@ -22,25 +24,29 @@ class MainWindow(Frame):
 
         fileMenu = Menu(menubar)
         fileMenu.add_command(label="Open", command=self.onOpen)
-        fileMenu.add_command(label="Save", command=self.onSave)  #TODO
-        fileMenu.add_command(label="Save As", command=self.onSaveAs)  #TODO
+        fileMenu.add_command(label="Save", command=self.onSave)
+        fileMenu.add_command(label="Save As", command=self.onSaveAs)
 
         menubar.add_cascade(label="File", menu=fileMenu)
 
         effectsMenu = Menu(self.parent)
-        effectsMenu.add_command(label="Rotate CW") #TODO
-        effectsMenu.add_command(label="Rotate CCW") #TODO
-        effectsMenu.add_command(label="Vertical Flip")  #TODO
-        effectsMenu.add_command(label="Horizontal Flip") #TODO
+        effectsMenu.add_command(label="Rotate CW", command=self.onRotateCW)
+        effectsMenu.add_command(label="Rotate CCW", command=self.onRotateCCW)
+        effectsMenu.add_command(label="Vertical Flip", command=self.onVerticalFlip)
+        effectsMenu.add_command(label="Horizontal Flip", command=self.onHorizontalFlip)
         effectsMenu.add_separator()
-        effectsMenu.add_command(label="Invert") #TODO
-        effectsMenu.add_command(label="Greyscale") #TODO
-        effectsMenu.add_command(label="Lighten") #TODO
-        effectsMenu.add_command(label="Darken") #TODO
-        effectsMenu.add_command(label="Find edges") #TODO
-        effectsMenu.add_command(label="Sharpen") #TODO
+        effectsMenu.add_command(label="Invert", command=self.onInvert)
+        effectsMenu.add_command(label="Greyscale", command=self.onGreyscale)
+        effectsMenu.add_command(label="Lighten", command=self.onLighten)
+        effectsMenu.add_command(label="Darken", command=self.onDarken)
+        effectsMenu.add_command(label="Find edges", command=self.onFindEdges)
+        effectsMenu.add_command(label="Sharpen", command=self.onSharpen)
+        effectsMenu.add_command(label="Blur", command=self.onBlur)
 
         menubar.add_cascade(label="Effects", menu=effectsMenu)
+
+        self.canvas = Canvas(self.parent, width=500, height=500)
+        self.canvas.pack()
 
     def onSave(self):
         self.ImageProcessor.save()
@@ -61,4 +67,29 @@ class MainWindow(Frame):
         fl = dlg.show()
 
         if fl != '':
-            self.ImageProcessor.open(fl)
+            self.ImageProcessor = Image(fl)
+            tk_img = ImageTk.PhotoImage(self.ImageProcessor.image)
+            self.canvas.create_image(250, 250, image=tk_img)
+
+    def onRotateCW(self):
+        self.ImageProcessor.rotateCW()
+    def onRotateCCW(self):
+        self.ImageProcessor.rotateCCW()
+    def onVerticalFlip(self):
+        self.ImageProcessor.verticalFlip()
+    def onHorizontalFlip(self):
+        self.ImageProcessor.horizontalFlip()
+    def onInvert(self):
+        self.ImageProcessor.invert()
+    def onGreyscale(self):
+        self.ImageProcessor.greyscale()
+    def onLighten(self):
+        self.ImageProcessor.lighten()
+    def onDarken(self):
+        self.ImageProcessor.darken()
+    def onFindEdges(self):
+        self.ImageProcessor.findEdges()
+    def onSharpen(self):
+        self.ImageProcessor.sharpen()
+    def onBlur(self):
+        self.ImageProcessor.blur()
