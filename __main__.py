@@ -7,7 +7,10 @@ def main():
     root = Tk()
     MainWindow(root)
     root.mainloop()
-    root.destroy()
+    try:
+        root.destroy()
+    except:
+        pass
 
 if __name__ == '__main__':
     main()
