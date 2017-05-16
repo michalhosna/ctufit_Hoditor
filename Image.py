@@ -24,7 +24,7 @@ class Image:
         self.image = self.image.transpose(PImage.FLIP_LEFT_RIGHT)
     def invert(self):
         self.image = Effects.invert(self.image)
-    def greyscale(self):
+    def grayscale(self):
         self.image = ImageOps.grayscale(self.image)
     def lighten(self):
         self.image = Effects.lighten(self.image)

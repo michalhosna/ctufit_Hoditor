@@ -34,7 +34,7 @@ class MainWindow(Frame):
         effectsMenu.add_command(label="Horizontal Flip", command=self.onHorizontalFlip)
         effectsMenu.add_separator()
         effectsMenu.add_command(label="Invert", command=self.onInvert)
-        effectsMenu.add_command(label="Greyscale", command=self.onGreyscale)
+        effectsMenu.add_command(label="Grayscale", command=self.onGrayscale)
         effectsMenu.add_command(label="Lighten", command=self.onLighten)
         effectsMenu.add_command(label="Darken", command=self.onDarken)
         effectsMenu.add_command(label="Find edges", command=self.onFindEdges)
@@ -96,8 +96,8 @@ class MainWindow(Frame):
         self.ImageProcessor.invert()
         self.reloadImage()
 
-    def onGreyscale(self):
-        self.ImageProcessor.greyscale()
+    def onGrayscale(self):
+        self.ImageProcessor.grayscale()
         self.reloadImage()
 
     def onLighten(self):
