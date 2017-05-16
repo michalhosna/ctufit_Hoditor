@@ -2,6 +2,8 @@ import os.path
 from tkinter import Frame, BOTH, Menu, filedialog, Label as tkLabel
 from PIL import ImageTk
 from Image import Image
+from math import floor
+
 
 def actionCall(function):
     def _actionCall(self, *args, **kwargs):
@@ -13,6 +15,7 @@ def actionCall(function):
         return result
 
     return _actionCall
+
 
 class MainWindow(Frame):
     def __init__(self, parent):
@@ -130,6 +133,16 @@ class MainWindow(Frame):
 
     def reloadImage(self):
         self.imageLabel.configure(image=None)
-        self.keepPhoto = ImageTk.PhotoImage(self.ImageProcessor.image)
+        image = self.ImageProcessor.image
+        if image.size[0] > 800 or image.size[1] > 800:
+            if image.size[0] > image.size[1]:
+                image = image.resize((800, floor((800 / image.size[0]) * image.size[1])), True)
+            else:
+                image = image.resize((floor((800 / image.size[1]) * image.size[0]), 800), True)
+
+        if self.ImageProcessor.originalPath.rsplit('/', 1)[1] != 'init.png':
+            self.parent.title('Hoditor (' + self.ImageProcessor.originalPath.rsplit('/', 1)[1] + ': ' + str(
+                self.ImageProcessor.image.size[0]) + 'x' + str(self.ImageProcessor.image.size[1]) + ')')
+        self.keepPhoto = ImageTk.PhotoImage(image)
         self.parent.geometry('{}x{}'.format(self.keepPhoto.width(), self.keepPhoto.height()))
         self.imageLabel.configure(image=self.keepPhoto)
