@@ -14,6 +14,7 @@ class Image:
 
     def saveAs(self, path):
         self.image.save(path)
+        self.originalPath = path
 
     def rotateCW(self):
         self.image = Effects.rotateRight(self.image)
