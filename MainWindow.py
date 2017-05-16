@@ -43,6 +43,7 @@ class MainWindow(Frame):
 
         menubar.add_cascade(label="Effects", menu=effectsMenu)
 
+        self.parent.resizable(0,0)
 
         self.ImageProcessor = Image(os.path.dirname(os.path.abspath(__file__)) + "/init.png")
 
