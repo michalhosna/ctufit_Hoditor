@@ -1,4 +1,6 @@
 from PIL import ImageOps, Image as PImage, ImageFilter
+import Effects
+
 
 class Image:
     def __init__(self, path):
@@ -13,21 +15,21 @@ class Image:
         self.image.save(path)
 
     def rotateCW(self):
-        self.image = self.image.rotate(-90)
+        self.image = Effects.rotateRight(self.image)
     def rotateCCW(self):
-        self.image = self.image.rotate(90)
+        self.image = Effects.rotateLeft(self.image)
     def verticalFlip(self):
         self.image = self.image.transpose(PImage.FLIP_TOP_BOTTOM)
     def horizontalFlip(self):
         self.image = self.image.transpose(PImage.FLIP_LEFT_RIGHT)
     def invert(self):
-        self.image = ImageOps.invert(self.image)
+        self.image = Effects.invert(self.image)
     def greyscale(self):
         self.image = ImageOps.grayscale(self.image)
     def lighten(self):
-        self.image = self.image.point(lambda p: p * 1.1)
+        self.image = Effects.lighten(self.image)
     def darken(self):
-        self.image = self.image.point(lambda p: p * 0.9)
+        self.image = Effects.darken(self.image)
     def findEdges(self):
         self.image = self.image.filter(ImageFilter.FIND_EDGES)
     def sharpen(self):
