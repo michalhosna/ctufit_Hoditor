@@ -9,7 +9,7 @@ class Image:
         self.originalPath = path
 
     def save(self):
-        if self.originalPath != 'init.png':
+        if self.originalPath.rsplit('/', 1)[1] != 'init.png':
             self.image.save(self.originalPath)
 
     def saveAs(self, path):
