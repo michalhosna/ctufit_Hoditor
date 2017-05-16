@@ -5,6 +5,7 @@ from collections import namedtuple
 
 filterTuple = namedtuple('filterName', ['name', 'factor', 'bias', 'filter'])
 
+
 def rotateRight(image):
     return rotate(image, 3)
 
@@ -66,16 +67,16 @@ def blur(image):
         [0, 0, 1, 0, 0]
     ]))
 
+
 def sharpen(image):
     return applyMatrixFilter(image, filterTuple('sharpen', 1.0, 0.0, [
-    [1,  1,  1],
-    [1, -7,  1],
-    [1,  1,  1]
-]))
+        [1, 1, 1],
+        [1, -7, 1],
+        [1, 1, 1]
+    ]))
 
 
 def applyMatrixFilter(image, filter_matrix):
-    # TODO Show progress
     w, h, pData = image.size[0], image.size[1], image.load()
     resultImage = Image.new('RGB', [w, h], (255, 255, 255))
     drawField = ImageDraw.Draw(resultImage)
@@ -96,6 +97,8 @@ def applyMatrixFilter(image, filter_matrix):
             g = min(max(int(filter_matrix.factor * g + filter_matrix.bias), 0), 255)
             b = min(max(int(filter_matrix.factor * b + filter_matrix.bias), 0), 255)
             drawField.point((x, y), (r, g, b))
-           
+            print('Hardly working ..'
+                  + str(floor((x * h + y) / (w * h) * 100)) + '%  ', end='\r')
+    print('Done, suckers!       ')
 
     return resultImage
