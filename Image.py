@@ -34,6 +34,6 @@ class Image:
     def findEdges(self):
         self.image = self.image.filter(ImageFilter.FIND_EDGES)
     def sharpen(self):
-        self.image = self.image.filter(ImageFilter.SHARPEN)
+        self.image = Effects.sharpen(self.image)
     def blur(self):
-        self.image = self.image.filter(ImageFilter.BLUR)
+        self.image = Effects.blur(self.image)
