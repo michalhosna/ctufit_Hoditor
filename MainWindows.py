@@ -1,7 +1,7 @@
 
 from tkinter import Frame, BOTH, Menu, filedialog, Canvas, Label as tkLabel, PhotoImage
 from PIL import ImageTk
-
+import os.path
 from Image import Image
 
 class MainWindow(Frame):
@@ -44,7 +44,7 @@ class MainWindow(Frame):
         menubar.add_cascade(label="Effects", menu=effectsMenu)
 
 
-        self.ImageProcessor = Image("init.png")
+        self.ImageProcessor = Image(os.path.dirname(os.path.abspath(__file__)) + "/init.png")
 
         self.keepPhoto = ImageTk.PhotoImage(self.ImageProcessor.image)
         self.imageLabel = tkLabel(self, image=self.keepPhoto)
