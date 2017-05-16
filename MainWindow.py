@@ -1,8 +1,10 @@
 import os.path
-from tkinter import Frame, BOTH, Menu, filedialog, Label as tkLabel
-from PIL import ImageTk
-from Image import Image
 from math import floor
+from tkinter import Frame, BOTH, Menu, filedialog, Label as tkLabel
+
+from PIL import ImageTk
+
+from Image import Image
 
 
 def actionCall(function):

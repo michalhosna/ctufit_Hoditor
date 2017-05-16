@@ -1,7 +1,8 @@
-from PIL import Image, ImageDraw
-import numpy as np
-from math import floor
 from collections import namedtuple
+from math import floor
+
+import numpy as np
+from PIL import Image, ImageDraw
 
 filterTuple = namedtuple('filterName', ['name', 'factor', 'bias', 'filter'])
 
@@ -75,12 +76,14 @@ def sharpen(image):
         [1, 1, 1]
     ]))
 
+
 def edgeDetection(image):
     return applyMatrixFilter(image, filterTuple("Find Edges", 1.0, 0.0, [
         [-1, -1, -1],
         [-1, 8, -1],
         [-1, -1, -1]
     ]))
+
 
 def applyMatrixFilter(image, filter_matrix):
     w, h, pData = image.size[0], image.size[1], image.load()
@@ -108,4 +111,3 @@ def applyMatrixFilter(image, filter_matrix):
     print('Done, suckers!       ')
 
     return resultImage
-

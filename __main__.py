@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 
 from tkinter import Tk
+
 from MainWindow import MainWindow
+
 
 def main():
     root = Tk()
@@ -11,6 +13,7 @@ def main():
         root.destroy()
     except:
         pass
+
 
 if __name__ == '__main__':
     main()
