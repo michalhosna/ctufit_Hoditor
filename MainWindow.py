@@ -10,7 +10,10 @@ def actionCall(function):
         try:
             self.parent.config(cursor="wait")
         except:
-            ...
+            try:
+                self.parent.config(cursor="watch")
+            except:
+                ...
         result = function(self, *args, **kwargs)
         self.reloadImage()
         self.parent.config(cursor="")
