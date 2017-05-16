@@ -79,8 +79,7 @@ class MainWindow(Frame):
 
     def onOpen(self):
 
-        ftypes = [('All files', '*'), ('Supported images', '*.png')]
-        dlg = filedialog.Open(self, filetypes=ftypes)
+        dlg = filedialog.Open(self)
         fl = dlg.show()
 
         if fl != '':
