@@ -25,3 +25,22 @@ def invert(image):
     pixData[:, :, 1] = 255 - g
     pixData[:, :, 2] = 255 - b
     return Image.fromarray(pixData)
+
+def grayScale(image):
+    pixData = np.array(image)
+    r, g, b = pixData[:, :, 0], pixData[:, :, 1], pixData[:, :, 2]
+    m = 0.21 * r + 0.72 * g + 0.07 * b
+    pixData[:, :, 0], pixData[:, :, 1], pixData[:, :, 2] = m, m, m
+    pixData = np.clip(pixData[:, :, :], 0, 255)
+    return Image.fromarray(pixData.astype('uint8'))
+
+def flipHorizontal(image):
+    pixData = np.array(image)
+    pixData = np.fliplr(pixData)
+    return Image.fromarray(pixData)
+
+def flipVertical(image):
+    pixData = np.array(image)
+    pixData = np.flipud(pixData)
+    return Image.fromarray(pixData)
+
