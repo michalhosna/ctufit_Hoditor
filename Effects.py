@@ -16,7 +16,7 @@ def lighten(image):
     return image.point(lambda p: p * 1.1)
 
 def darken(image):
-    return image.point(lambda p: p * 1.1)
+    return image.point(lambda p: p * 0.9)
 
 def invert(image):
     pixData = np.array(image)
