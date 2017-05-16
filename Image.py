@@ -32,7 +32,7 @@ class Image:
     def darken(self):
         self.image = Effects.darken(self.image)
     def findEdges(self):
-        self.image = self.image.filter(ImageFilter.FIND_EDGES)
+        self.image = Effects.edgeDetection(self.image)
     def sharpen(self):
         self.image = Effects.sharpen(self.image)
     def blur(self):

@@ -75,6 +75,12 @@ def sharpen(image):
         [1, 1, 1]
     ]))
 
+def edgeDetection(image):
+    return applyMatrixFilter(image, filterTuple("Find Edges", 1.0, 0.0, [
+        [-1, -1, -1],
+        [-1, 8, -1],
+        [-1, -1, -1]
+    ]))
 
 def applyMatrixFilter(image, filter_matrix):
     w, h, pData = image.size[0], image.size[1], image.load()
@@ -102,3 +108,4 @@ def applyMatrixFilter(image, filter_matrix):
     print('Done, suckers!       ')
 
     return resultImage
+
