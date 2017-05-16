@@ -6,7 +6,8 @@ class Image:
         self.originalPath = path
 
     def save(self):
-        self.image.save(self.originalPath)
+        if self.originalPath != 'init.png':
+            self.image.save(self.originalPath)
 
     def saveAs(self, path):
         self.image.save(path)

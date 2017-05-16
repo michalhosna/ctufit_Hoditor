@@ -12,8 +12,6 @@ class MainWindow(Frame):
         self.parent = parent
         self.initUI()
 
-        self.ImageProcessor = None
-
     def initUI(self):
 
         self.parent.title("Hoditor")
@@ -45,11 +43,14 @@ class MainWindow(Frame):
 
         menubar.add_cascade(label="Effects", menu=effectsMenu)
 
-        self.parent.geometry('{}x{}'.format(200, 200))
 
-        self.keepPhoto = PhotoImage()
+        self.ImageProcessor = Image("init.png")
+
+        self.keepPhoto = ImageTk.PhotoImage(self.ImageProcessor.image)
         self.imageLabel = tkLabel(self, image=self.keepPhoto)
-        self.imageLabel.grid(row=0, column=0)
+        self.imageLabel.pack()
+
+        self.reloadImage()
 
     def onSave(self):
         self.ImageProcessor.save()
